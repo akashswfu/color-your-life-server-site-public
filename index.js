@@ -30,6 +30,7 @@ async function run() {
     await client.connect();
 
     const itemCollection = client.db('itemDB').collection('item');
+    const categoryCollection = client.db('itemDB').collection('category');
 
     // Data Add to the MongoDB
 
@@ -37,8 +38,8 @@ async function run() {
         const newItem = req.body;
         const result = await itemCollection.insertOne(newItem);
         res.send(result);
-
     })
+   
 
     // dat read on server
 
@@ -103,9 +104,26 @@ async function run() {
         res.send(result);
 
     })
+    
+    //category start here
 
+    app.post('/category',async(req,res)=>{
+        const newItem = req.body;
+        const result = await categoryCollection.insertOne(newItem);
+        res.send(result);
+        console.log(result);
+    })
 
-
+    app.get('/category',async(req,res)=>{
+        const cursor = categoryCollection.find();
+        const result = await cursor.toArray();
+        res.send(result);
+    })
+    app.get('/item/:subcategory',async(req,res)=>{
+        
+        const result = await itemCollection.find({subcategory:req.params.subcategory}).toArray();
+        res.send(result);
+    })
 
 
     // Send a ping to confirm a successful connection
