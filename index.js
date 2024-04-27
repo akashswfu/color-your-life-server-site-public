@@ -13,7 +13,7 @@ app.use(express.json())
 
 
 
-const uri = "mongodb+srv://craftItemDb:Akash925@cluster0.ib4xmsu.mongodb.net/?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.ib4xmsu.mongodb.net/?retryWrites=true&w=majority`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -59,11 +59,30 @@ async function run() {
     })
 
 
-    //data read by email 
+    //data  read by email 
 
-    app.get('/item/:email',async(req,res)=>{
+    app.get('/emailItem',async(req,res)=>{
+        const cursor = itemCollection.find();
+        const result = await cursor.toArray();
+        res.send(result);
+    })
+
+    app.get('/emailItem/:email',async(req,res)=>{
         
         const result = await itemCollection.find({email:req.params.email}).toArray();
+        res.send(result);
+    })
+
+    //data get by subcategory
+    app.get('/allCategory',async(req,res)=>{
+        const cursor = itemCollection.find();
+        const result = await cursor.toArray();
+        res.send(result);
+    })
+
+    app.get('/allCategory/:subcategory',async(req,res)=>{
+        
+        const result = await itemCollection.find({subcategory:req.params.subcategory}).toArray();
         res.send(result);
     })
     
@@ -119,11 +138,10 @@ async function run() {
         const result = await cursor.toArray();
         res.send(result);
     })
-    app.get('/item/:subcategory',async(req,res)=>{
-        
-        const result = await itemCollection.find({subcategory:req.params.subcategory}).toArray();
-        res.send(result);
-    })
+    
+
+    
+    
 
 
     // Send a ping to confirm a successful connection
