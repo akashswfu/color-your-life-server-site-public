@@ -68,10 +68,38 @@ async function run() {
     })
 
     app.get('/emailItem/:email',async(req,res)=>{
-        
-        const result = await itemCollection.find({email:req.params.email}).toArray();
+        const query = req.query.customization || {};
+        const email = req.params.email;
+        const result = await itemCollection.find({email:email }).toArray();
         res.send(result);
+        console.log(result);
     })
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //data get by subcategory
     app.get('/allCategory',async(req,res)=>{
