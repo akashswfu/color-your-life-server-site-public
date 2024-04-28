@@ -68,11 +68,11 @@ async function run() {
     })
 
     app.get('/emailItem/:email',async(req,res)=>{
-        const query = req.query.customization || {};
+       
         const email = req.params.email;
         const result = await itemCollection.find({email:email }).toArray();
         res.send(result);
-        console.log(result);
+
     })
 
     
@@ -158,7 +158,7 @@ async function run() {
         const newItem = req.body;
         const result = await categoryCollection.insertOne(newItem);
         res.send(result);
-        console.log(result);
+
     })
 
     app.get('/category',async(req,res)=>{
