@@ -59,7 +59,7 @@ async function run() {
     })
 
 
-    //data  read by email 
+  
 
     app.get('/emailItem',async(req,res)=>{
         const cursor = itemCollection.find();
@@ -67,13 +67,13 @@ async function run() {
         res.send(result);
     })
 
-    app.get('/emailItem/:email',async(req,res)=>{
-        const query = req.query.customization || {};
-        const email = req.params.email;
-        const result = await itemCollection.find({email:email }).toArray();
-        res.send(result);
-        console.log(result);
-    })
+    // app.get('/emailItem/:email',async(req,res)=>{
+    //     const query = req.query.customization || {};
+    //     const email = req.params.email;
+    //     const result = await itemCollection.find({email:email }).toArray();
+    //     res.send(result);
+    //     console.log(result);
+    // })
 
     
 
